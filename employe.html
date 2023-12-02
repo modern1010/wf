@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            margin-bottom: 16px;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Employee Registration</h2>
+
+<form id="employeeForm" onsubmit="return validateForm()">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" required>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+    <span id="dobError" class="error"></span>
+
+    <label for="joiningDate">Joining Date:</label>
+    <input type="date" id="joiningDate" name="joiningDate" required>
+    <span id="joiningDateError" class="error"></span>
+
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" name="salary" required>
+    <span id="salaryError" class="error"></span>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function validateForm() {
+        var fullName = document.getElementById("fullName").value;
+        var dob = document.getElementById("dob").value;
+        var joiningDate = document.getElementById("joiningDate").value;
+        var salary = document.getElementById("salary").value;
+
+        var dobError = document.getElementById("dobError");
+        var joiningDateError = document.getElementById("joiningDateError");
+        var salaryError = document.getElementById("salaryError");
+
+        // Validate Date of Birth (DOB)
+        var dobDate = new Date(dob);
+        var currentDate = new Date();
+        if (dobDate >= currentDate) {
+            dobError.innerHTML = "Date of Birth cannot be in the future";
+            return false;
+        } else {
+            dobError.innerHTML = "";
+        }
+
+        // Validate Joining Date
+        var joiningDateObj = new Date(joiningDate);
+        if (joiningDateObj > currentDate || dobDate > joiningDateObj) {
+            joiningDateError.innerHTML = "Joining Date cannot be in the future, and it should not be earlier than Date of Birth";
+            return false;
+        } else {
+            joiningDateError.innerHTML = "";
+        }
+
+        // Validate Salary
+        if (!/^[1-9]\d*$/.test(salary)) {
+            salaryError.innerHTML = "Salary must be a positive integer greater than 0";
+            return false;
+        } else {
+            salaryError.innerHTML = "";
+        }
+
+        // Display success message using an alert
+        alert("Submitted successfully!");
+
+        // If all validations pass, the form can be submitted
+        return true;
+    }
+</script>
+
+</body>
+</html>
