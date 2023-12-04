@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="employeeForm">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="joiningDate">Joining Date:</label>
+        <input type="date" id="joiningDate" name="joiningDate" required>
+
+        <label for="salary">Salary:</label>
+        <input type="text" id="salary" name="salary" required>
+
+        <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var dob = new Date(document.getElementById('dob').value);
+            var joiningDate = new Date(document.getElementById('joiningDate').value);
+            var salary = document.getElementById('salary').value;
+
+            if (dob >= joiningDate) {
+                alert('Date of Birth should be less than Joining Date.');
+                return;
+            }
+
+            if (isNaN(salary) || !Number.isInteger(parseFloat(salary))) {
+                alert('Salary should be a valid integer.');
+                return;
+            }
+
+            // If all validations pass, you can submit the form or take further action.
+            alert('Form submitted successfully!');
+        }
+    </script>
+
+</body>
+</html>
